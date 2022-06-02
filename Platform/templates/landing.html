@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GamerDatez</title>
+    <link rel="stylesheet" href="{% static 'styling/landing.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styling/animating.css' %}"/>
+  </head>
+  <body>
+    <main>
+      <div class="info">
+        <h1 id="title" class="animate fadeInLeft"></h1>
+        <p class="animate fadeInLeft one">A safe place conecting you to your future soulmate with <b>video games</b>
+          , what? Are you waiting for me to woo you with an essay you will never read? <a href="/pitch">If so, here it is</a>
+          <br><br>Dark mode only accessible if you create an account >:)</p>
+
+        <p class="text" style="color: var(--color-danger); margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1rem;">
+          {%for message in messages %}
+          {{message}}
+          {% endfor %}
+        </p>
+      </div>
+      <div class="box animate fadeIn two">
+        <div class="inner-box">
+          <div class="forms-wrap">
+            <form action="" autocomplete="off" class="sign-in-form" method="POST">
+              {% csrf_token %}
+              <div class="heading">
+                <h2>Hello there!</h2>
+                <h6>Ain't got an account yet?</h6>
+                <a href="#" class="toggle">Get one!</a>
+              </div>
+
+              <div class="actual-form">
+                <div class="input-wrap">
+                  <input
+                    type="text"
+                    minlength="4"
+                    class="input-field"
+                    autocomplete="off"
+                    method="POST"
+                    name="lusername"
+                    required
+                  />
+                  <label>Username</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    minlength="4"
+                    class="input-field"
+                    autocomplete="off"
+                    method="POST"
+                    name="lpassword"
+                    required
+                  />
+                  <label>Your Secure Password</label>
+                </div>
+
+                <input type="submit" value="Sign In" class="sign-btn" method="POST" />
+
+                <p class="text">
+                  Forgotten your password or your login details?<br>
+                  Well suck it, that isn't my problem.
+                </p>
+              </div>
+            </form>
+
+            <form action="" autocomplete="off" class="sign-up-form" method="POST">
+              {% csrf_token %}
+              <div class="heading">
+                <h2>General Kenobi!</h2>
+                <h6>Already done this before?</h6>
+                <a href="#" class="toggle">Sign in then!</a>
+              </div>
+
+              <div class="actual-form">
+                <div class="input-wrap">
+                  <input
+                    type="text"
+                    name="username"
+                    minlength="4"
+                    class="input-field"
+                    autocomplete="off"
+                    method="POST"
+                    required
+                  />
+                  <label>Username</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="email"
+                    class="input-field"
+                    autocomplete="off"
+                    method="POST"
+                    name="email"
+                    required
+                  />
+                  <label>Email</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    minlength="4"
+                    class="input-field"
+                    autocomplete="off"
+                    method="POST"
+                    name="password"
+                    required
+                  />
+                  <label>Password</label>
+                </div>
+
+                <input type="submit" value="Sign Up" class="sign-btn" method="POST" />
+
+                <p class="text">
+                  By signing up, I agree to have my data stolen and to the
+                  <a href="/terms">Terms of Service</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <p class="animate fadeInUp three" style="color: var(--color-gray); position: absolute; bottom: 0%; font-size: 0.75rem;">
+        I'm new and still in development, so I haven't been idiotproofed yet, also cookies n all that stuff idk</p>
+    </main>
+
+    <!-- Javascript file -->
+    <script src="{% static 'javascript/landing.js' %}"></script>
+  </body>
+</html>

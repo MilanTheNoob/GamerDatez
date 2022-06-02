@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-white: hsl(252, 30%, 100%);
+  --color-light: hsl(252, 30%, 95%);
+  --color-gray: hsl(252, 15%, 65%);
+  --color-primary: hsl(252, 75%, 60%);
+  --color-secondary: hsl(252, 100%, 90%);
+  --color-success: hsl(120, 95%, 65%);
+  --color-danger: hsl(0, 95%, 65%);
+  --color-dark: hsl(252, 30%, 17%);
+  --color-black: hsl(252, 30%, 10%);
+
+  --border-radius: 0.75rem;
+  --card-border-radius: 1rem;
+  --btn-padding: 0.6rem 2rem;
+  --search-padding: 0.6rem 1rem;
+  --card-padding: 1rem;
+
+  --sticky-top-left: 5.4rem;
+  --sticky-top-right: -18rem;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: var(--color-dark);
+  background: var(--color-light);
+  overflow-x: hidden;
+}
+
+iframe {
+  border-radius: 5px;
+}
+
+.text-bold {
+  font-weight: 500;
+}
+
+.text-muted {
+  color: var(--color-gray);
+}
+
+.section p {
+  margin-right: 30%;
+}
+
+.card {
+  width: 90%;
+  left: 5%;
+  position: absolute;
+  background: var(--color-white);
+  border-radius: var(--card-border-radius);
+}
+
+.card .holder {
+  padding: 2rem;
+}
+
+.entry {
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+input, textarea, select {
+  border: none;
+  padding: var(--search-padding);
+  background: var(--color-light);
+  border-radius: var(--border-radius);
+  color: var(--color-dark);
+  font-family: "Poppins", sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  padding: var(--btn-padding);
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 300m ease;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+  opacity: 0.8rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+h4 {
+  margin: 0.5rem 0 0.5rem 0;
+}
+h2 {
+  margin: 0;
+}

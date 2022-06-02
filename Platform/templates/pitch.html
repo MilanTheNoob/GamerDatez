@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>The Pitch</title>
+    <link rel="stylesheet" href="{% static 'styling/pitch.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styling/animating.css' %}"/>
+  </head>
+  <body>
+    <div class="entry animate fadeInDown">
+      <p id="title" style="text-align: left; padding: 2rem;">
+        Why sign up to GamerDatez? Well thats a great question I wished more people would ask. You see thats what
+        this essay is for! So here is several hours of my life here to convince you to spend five minutes using
+        this Tinder & Snapchat hybrid mixed with some humor from the office.
+      </p>
+    </div>
+    <div class="card animate fadeIn four">
+      <div class="section">
+        <div class="left">
+          <iframe src="https://giphy.com/embed/WOIGpnJ3ye445BUQl4" width="480" height="400" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+        <div class="right">
+          <h1>A place dedicated to a single community</h1>
+          <p>One that is completely dedicated to the incredibly gaming community and its members. A place
+          that treats the community as its entire demographic, not a niche stepping stone to relegate as a sub-group
+          down the line.</p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="left">
+          <h1>Where hanging out is GENUINELY easy</h1>
+          <p>And connecting with people over video games couldn't be more frictionless with more cheesy pickup
+            lines than ever previously known! Where your both so busy focusing on what build palette to use in Minecraft
+            or which spot to land in Fortnite that you can easily hang out with each other</p>
+        </div>
+        <div class="right">
+            <iframe src="https://giphy.com/embed/l2Je27i1H6hhKrdni" width="480" height="362" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+      </div>
+      <div class="section">
+        <div class="right">
+          <iframe src="https://giphy.com/embed/jU9OCvBiO1besabUKU" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+        <div class="left">
+          <h1>A spartan design for yours truly</h1>
+          <p>While some people would call it unfinished, i call it <b>minimalism</b>.
+            Be able to clearly focus on communicating with new people and playing video games without your eyes & PC
+            going <i>brrrrrrrrrrr</i>
+            </p>
+        </div>
+      </div>
+      <div class="section">
+        <div class="left">
+          <h1>A relatable and truly genuine platform</h1>
+          <p>Instead of companies & services posting dead trends on Twitter just to squeeze
+          the last penny out of their marketing budget we can up them with a $0 marketing budget with our
+          ENTIRE platform full of dead trends from Twitter.<br><br>neat huh?</p>
+        </div>
+        <div class="right">
+          <iframe src="https://giphy.com/embed/5q3LjlbEEZcNOkMK4V" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+      </div>
+      <div class="section">
+        <div class="right">
+          <iframe src="https://giphy.com/embed/Wq4XuPC9gFzR6" width="480" height="356" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </div>
+        <div class="left">
+          <h1>An almost reliable experience</h1>
+          <p>While you sure as hell don't want to look behind the curtain *cough* you can feel a
+            seamless and comfortable experience that can work even with poor internet.
+            </p>
+        </div>
+      </div>
+      <div class="" style="margin-bottom: 0.5rem; text-align: center;">
+        <p>Well damn, I've reached the end of my pitch.
+        I bet you were hoping that would never end huh? So what do you say you move your lil mouse
+        to the sign up button eh? ( ͡° ͜ʖ ͡°)</p>
+
+        <button type="button" onclick="window.location.href='/landing'" class="btn"
+        name="button">Well don't mind If I do</button>
+      </div>
+    </div>
+    <script type="text/javascript" src="{% static 'javascript/pitch.js' %}"></script>
+    <script type="text/javascript">
+      typeWriter();
+    </script>
+  </body>
+</html>

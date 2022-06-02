@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>GamerDatez</title>
+
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'styling/index.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styling/global.css' %}"/>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="left">
+          <a class="profile animate fadeInLeft one">
+            <div class="profile-photo">
+              <img src="{{user_profile.profileimg.url}}" alt="">
+            </div>
+            <div class="handle">
+              <h4>{{user.username}}</h4>
+              <p class="text-muted" style="display: none;">@Milanthenoob</p>
+            </div>
+          </a>
+
+          <div class="sidebar animate fadeInLeft two">
+            <a class="menu-item" id="home">
+              <span><i class="fa-solid fa-house"></i></span><h3>Home</h3>
+            </a>
+            <a class="menu-item" id="dates">
+              <span><i class="fas fa-heart"></i></span><h3>Find Dates</h3>
+            </a>
+            <a class="menu-item" id="messages">
+              <span><i class="fas fa-comment"><small class="notification-count">6</small></i></span><h3>Messages</h3>
+            </a>
+            <a class="menu-item" id="settings">
+              <span><i class="fas fa-cog"></i></span><h3>Settings</h3>
+            </a>
+          </div>
+        </div>
+        <div class="middle">
+          <div class="card animate fadeInDown">
+            <div class="home-tab">
+              <h2>Home</h2>
+              <p class="text-muted">So how many bugs will you run into today then {{user.username}}?</p>
+            </div>
+            <div class="dates-tab">
+              <h1>Dates</h1>
+              <p style="margin-bottom: 1rem;">All I have to say is good luck</p>
+              <div style="width: 100%; display: grid; grid-template-columns: auto auto; grid-column-gap: 1rem;">
+                <button type="button" class="btn" style="background: var(--color-light);">Search Criteria</button>
+                <button type="button" class="btn btn-primary">Get Me Sum Dates</button>
+              </div>
+
+              <div class="dating-cards">
+                <div class="dating-card">
+                  <img src="{% static 'images/default-profile-pic.jpg' %}" class="top-img">
+                  <div class="bottom-card">
+                    <h4>Jane Doe</h4>
+                    <p class="text-muted">Age 26, Likes Minecraft, Fortnite & League of Legends</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="messages-tab messages">
+              <h2>Messages</h2>
+              <p class="text-muted">Why did you leave me on read bro ;-;</p>
+
+              <div class="category">
+                <h6 class="active">Main</h6>
+                <h6>Meh</h6>
+                <h6 class="message-requests">Requests</h6>
+              </div>
+              <div class="message">
+                <div class="profile-photo">
+                  <img src="{% static 'images/profile-7.jpg' %}" alt="">
+                </div>
+                <div class="message-body">
+                  <h5>Jay Knipfer</h5>
+                  <p class="text-muted">MILAAAN, get on here rn!</p>
+                </div>
+              </div>
+            </div>
+            <div class="settings-tab settings">
+              <h2>Settings & Customisation</h2>
+              <p class="text-muted">Manage everything you need from personalisation to your account settings<br><br>
+                More customisation & an actually readable layout is coming soon I promise.</p>
+
+              <div class="font-size">
+                <h4>Font Size</h4>
+                <div>
+                  <h6>Aa</h6>
+                  <div class="choose-size">
+                    <span class="font-size-1"></span>
+                    <span class="font-size-2"></span>
+                    <span class="font-size-3 active"></span>
+                    <span class="font-size-4"></span>
+                    <span class="font-size-5"></span>
+                  </div>
+                  <h3>Aa</h3>
+                </div>
+              </div>
+
+              <div class="color">
+                <h4>Primary Color</h4>
+                <div class="choose-color">
+                  <span class="color-1 active"></span>
+                  <span class="color-2"></span>
+                  <span class="color-3"></span>
+                  <span class="color-4"></span>
+                  <span class="color-5"></span>
+                </div>
+              </div>
+
+              <div class="background">
+                <h4>Secondary Colors</h4>
+                <div class="choose-bg">
+                  <div class="bg-1 active">
+                    <span></span>
+                    <h5 for="bg-1">My Eyes!</h5>
+                  </div>
+                  <div class="bg-2">
+                    <span></span>
+                    <h5 for="bg-2">Coool</h5>
+                  </div>
+                  <div class="bg-3">
+                    <span></span>
+                    <h5 for="bg-3">Dungeon</h5>
+                  </div>
+                </div>
+              </div>
+
+              <form style="width: 100%; margin-top: 1rem;" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <h4>Profile Image</h4>
+                <input name="account-image" type="file">
+
+                <h4 style="margin-top: 1rem;">Bio</h4>
+                <textarea name="account-bio" rows="8" cols="80" class="account-textarea">{{user_profile.bio}}</textarea>
+
+                <h4 style="margin-top: 1rem;">Submit Profile Changes</h4>
+                <button type="submit" name="button" class="btn btn-primary">Yup!</button>
+
+              </form>
+
+              <a class="btn logout-btn" href="logout">Log Out</a>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="requests animate fadeInRight three">
+            <h4>Requests</h4>
+            <div class="request">
+              <div class="info">
+                <div class="profile-photo">
+                  <img src="{% static 'images/profile-13.jpg' %}" alt="">
+                </div>
+                <div>
+                  <h5>Paige</h5>
+                  <p class="text-muted" style="font-size: 0.75rem;">3 mutual friends</p>
+                </div>
+                <div class="action">
+                  <button class="btn btn-primary">Accept</button>
+                  <button class="btn">Deny</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/hammer.js' %}"></script>
+  </body>
+</html>
