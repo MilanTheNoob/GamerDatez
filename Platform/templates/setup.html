@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>GamerDatez Setup</title>
     <link rel="stylesheet" href="{% static 'styling/setup.css' %}"/>
-    <link rel="stylesheet" href="{% static 'styling/animating.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styling/global.css' %}"/>
   </head>
   <body>
     <div class="entry">
@@ -33,6 +33,18 @@
           <input form="setupForm" type="date" name="birth_date" placeholder="">
           <h4>Country (Two Letter Code)</h4>
           <input form="setupForm" type="text" name="country" size="2" value="Country">
+          <h4>Gender</h4>
+          <select form="setupForm" name="sex" placeholder="Gender">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+            <option value="2">Other</option>
+          </select>
+          <h4>Interested in</h4>
+          <select form="setupForm" name="preference" placeholder="Preference">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+            <option value="2">Other</option>
+          </select>
           <h4>Profile Bio</h4>
           <textarea form="setupForm" name="bio" rows="8" cols="80" placeholder="Bio"></textarea>
           <br><a id="gaming" class="btn btn-primary">Continue</a>
@@ -233,7 +245,7 @@
         <div class="section premium-tab">
           <h2>A quick message</h2>
 
-          <button type="submit" name="button">Finish</button>
+          <button form="setupForm" type="submit" name="button">Finish</button>
         </div>
       </div>
     </div>

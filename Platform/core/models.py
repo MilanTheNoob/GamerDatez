@@ -23,13 +23,14 @@ class Profile(models.Model):
     first_name = models.TextField(blank=True)
     last_name = models.TextField(blank=True)
 
+    sex = models.CharField(max_length=1, default=1)
+    preference = models.CharField(max_length=1, default=1)
+
     bio = models.TextField(blank=True)
     profileimg = models.ImageField(upload_to='profile_images', default='default-profile-picture.jpg')
     age = models.IntegerField(default=18)
     birth_date = models.DateTimeField(default=datetime.now)
     country = CountryField(default='US')
-
-    version = models.IntegerField(default=10, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     fav_game = models.CharField(max_length=10, choices=games, default=1)
     sec_fav_game = models.CharField(max_length=10, choices=games, default=1)

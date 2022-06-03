@@ -177,6 +177,11 @@ body {
   overflow-x: hidden;
 }
 
+iframe {
+  border-radius: var(--card-border-radius);
+  pointer-events: none;
+}
+
 /*=== Button & Text Styling ==*/
 
 .btn {

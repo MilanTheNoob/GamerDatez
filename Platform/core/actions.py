@@ -48,3 +48,24 @@ def submit_avatar(request):
         user_profile.save()
 
     return redirect('setup')
+
+@login_required(login_url='landing')
+def finish_setup(request):
+    if request.method == 'POST':
+        user_profile = Profile.objects.get(user=request.user)
+
+        user_profile.first_name = request.POST.get('first_name')
+        user_profile.last_name = request.POST.get('last_name')
+        user_profile.sex = request.POST.get('sex')
+        user_profile.preference = request.POST.get('preference')
+        user_profile.bio = request.POST.get('bio')
+        user_profile.age = request.POST.get('age')
+        user_profile.birth_date = request.POST.get('birth_date')
+        user_profile.country = request.POST.get('country')
+        user_profile.fav_game = request.POST.get('fav_game_1')
+        user_profile.sec_fav_game = request.POST.get('fav_game_2')
+        user_profile.third_fav_game = request.POST.get('fav_game_3')
+
+        user_profile.save()
+
+    return redirect('setup')

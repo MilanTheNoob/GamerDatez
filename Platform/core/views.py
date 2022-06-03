@@ -79,7 +79,7 @@ def landing(request):
 
             if user is not None:
                 auth.login(request, user)
-                return redirect('setup')
+                return redirect('/')
             else:
                 messages.info(request, "Please reinput your info or create an account.")
                 return redirect('landing')

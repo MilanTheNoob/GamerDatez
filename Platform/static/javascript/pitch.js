@@ -1,13 +1,23 @@
-var iter = 0;
-var titleTxt = `Why sign up to GamerDatez? Well thats a great question I wished more people would ask. You see thats what
-this essay is for! So here is several hours of my life here to convince you to spend five minutes using
-this Tinder & Snapchat hybrid mixed with some humor from the office.`;
-/*
-function typeWriter() {
-  if (iter < titleTxt.length) {
-    document.getElementById("title").innerHTML += titleTxt.charAt(iter);
-    iter++;
-    setTimeout(typeWriter, 10);
+const tabs = ["pitch", "devlog", "faq", "about"];
+const tabCount = 4;
+
+var activeTab = 0;
+
+window.onload = function startup() {
+  for (let i = 0; i < tabCount; i++) {
+    document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
+    document.querySelector('#' + tabs[i]).addEventListener('click', openTab)
   }
 }
-*/
+
+const openTab = (e) => {
+  if (tabs.includes(e.target.id)) {
+    for (let i = 0; i < tabCount; i++) {
+      if (tabs[i] == e.target.id) {
+        document.querySelector('.' + tabs[i] + '-tab').style.display = 'block';
+    } else {
+      document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
+      }
+    }
+  }
+}
