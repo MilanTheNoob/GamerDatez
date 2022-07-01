@@ -6,7 +6,8 @@
   --color-white: hsl(252, 30%, 100%);
   --color-light: hsl(252, 30%, 95%);
   --color-gray: hsl(252, 15%, 65%);
-  --color-primary: hsl(252, 75%, 60%);
+  --color-primary-1: #2E3192;
+  --color-primary-2: #1BFFFF;
   --color-secondary: hsl(252, 100%, 90%);
   --color-success: hsl(120, 95%, 65%);
   --color-danger: hsl(0, 95%, 65%);
@@ -174,7 +175,12 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--color-dark);
   background: var(--color-light);
-  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 iframe {
@@ -196,6 +202,6 @@ iframe {
 }
 
 .btn:hover { opacity: 0.8rem; }
-.btn-primary { background: var(--color-primary); color: white; }
+.btn-primary { background: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2)); color: white; }
 .text-bold { font-weight: 500; }
 .text-muted { color: var(--color-gray); }

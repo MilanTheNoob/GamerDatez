@@ -51,43 +51,52 @@
             </div>
             <div class="dates-tab">
               <h1>Dates</h1>
-              <p>All I have to say is god speed (wo)man</p>
-              <p style="font-size: 0.6rem;" class="text-muted">Yes I was too lazy to add an if
-              statement to check your gender ... so want to buy a subscription to help make more of this well
-            thought out code? =D</p>
               <div class="dating-cards">
-                <div class="dating-card">
-                  <img src="{% static 'images/default-profile-pic.jpg' %}" class="top-img">
-                  <div class="bottom-card">
-                    <h4>Jane Doe</h4>
-                    <p class="text-muted">Age 26, Likes Minecraft, Fortnite & League of Legends</p>
-                  </div>
+                <div class="dating-card" id="dating-card">
                 </div>
               </div>
 
               <div class="date-actions">
-                <a id="nope">Nope</a>
-                <a id="yes">Yasss</a>
+                <a id="nope"><i class="fa-solid fa-xmark"></i> Nope</a>
+                <a id="yes"><i class="fa-solid fa-check"></i> Yasss</a>
               </div>
 
             </div>
             <div class="messages-tab messages">
               <h2>Messages</h2>
               <p class="text-muted">Why did you leave me on read bro ;-;</p>
-
-              <div class="category">
-                <h6 class="active">Main</h6>
-                <h6>Meh</h6>
-                <h6 class="message-requests">Requests</h6>
-              </div>
-              <div class="message">
+              {% for msgPreview in msgs_previews %}
+              <div class="message" onclick="loadMessages('{{ msgPreview.id }}')">
                 <div class="profile-photo">
-                  <img src="{% static 'images/profile-7.jpg' %}" alt="">
+                  <img src="media/{{ msgPreview.icon }}" alt="">
                 </div>
                 <div class="message-body">
-                  <h5>Jay Knipfer</h5>
-                  <p class="text-muted">MILAAAN, get on here rn!</p>
+                  <h5>{{ msgPreview.name }}</h5>
+                  <p class="text-muted">{{ msgPreview.preview }}</p>
                 </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="messaging-tab">
+              <div class="msg-header">
+                <div class="profile-photo">
+                  <img src="media/profile_images/MilanTheNoob.png" alt="">
+                </div>
+                <div class="msg-info">
+                  <h2>Flirt with [name]</h2>
+                  <p style="text-muted">Online playing Minecraft</p>
+                </div>
+              </div>
+
+              <div class="chat">
+                
+              </div>
+
+              <div class="msg-input">
+                <a><i class="fas fa-upload"></i></a>
+                <a><i class="fas fa-grin-squint"></i></a>
+                <a><i class="fas fa-grin-squint-tears"></i></a>
+                <input type="input" class="input-msg" name="msg" autocomplete="off" placeholder="Write a cheesy pickup line">
               </div>
             </div>
             <div class="settings-tab settings">
@@ -139,46 +148,347 @@
                 </div>
               </div>
 
-              <form style="width: 100%; margin-top: 1rem;" enctype="multipart/form-data" method="POST">
-                {% csrf_token %}
-                <h4>Profile Image</h4>
-                <input name="account-image" type="file">
-
-                <h4 style="margin-top: 1rem;">Bio</h4>
-                <textarea name="account-bio" rows="8" cols="80" class="account-textarea">{{user_profile.bio}}</textarea>
-
-                <h4 style="margin-top: 1rem;">Submit Profile Changes</h4>
-                <button type="submit" name="button" class="btn btn-primary">Yup!</button>
-
-              </form>
-
-              <a class="btn logout-btn" href="logout">Log Out</a>
+              <a class="btn logout-btn" style="text-align: center;" href="logout">Log Out</a>
             </div>
           </div>
         </div>
         <div class="right">
           <div class="requests animate fadeInRight three">
             <h4>Requests</h4>
-            <div class="request">
+            {% for date in date_requests %}
+            <div class="request" id="{{ date.user_id }}request">
               <div class="info">
-                <div class="profile-photo">
-                  <img src="{% static 'images/profile-13.jpg' %}" alt="">
-                </div>
-                <div>
-                  <h5>Paige</h5>
-                  <p class="text-muted" style="font-size: 0.75rem;">3 mutual friends</p>
+                <div style="display: grid;grid-template-rows: auto;grid-template-columns: min-content auto;
+                grid-column-gap: 1rem;margin-bottom: 0.7rem;">
+                  <div class="profile-photo">
+                    <img src="media/{{ date.profileimg }}" alt="">
+                  </div>
+                  <div>
+                    <h5 style="color: var(--color-dark);">{{ date.first_name }}</h5>
+                    <div style="font-size: 0.8rem;">
+                      <p class="text-muted">Likes {{ date.fav_game }}, {{ date.sec_fav_game }} & {{ date.third_fav_game }}</p>
+                      <p class="text-muted">Age: {{ date.age }}</p>
+                    </div>
+                  </div>
                 </div>
                 <div class="action">
-                  <button class="btn btn-primary">Accept</button>
-                  <button class="btn">Deny</button>
+                  <button class="btn btn-primary" onclick="acceptDate({{ date.user_id }});">Accept</button>
+                  <button class="btn" onclick="denyDate({{ date.user_id }});">Ignore</button>
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
       </div>
     </main>
     <script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
-    <script type="text/javascript" src="{% static 'javascript/hammer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/jquery.js' %}"></script>
+    <script type="text/javascript">
+      const likeButton = document.getElementById("yes");
+      const passButton = document.getElementById("nope");
+      const content = document.getElementById("dating-card");
+
+      const profiles = [];
+      let profileCount = 0;
+
+      let cookie = document.cookie;
+      let csrfToken = cookie.substring(cookie.indexOf('=') + 1);
+
+      let currentChatId = "";
+      let watchingMessages = true;
+
+      const tabs = ["home", "dates", "messages", "settings", "messaging"];
+      const tabCount = 5;
+
+      const fontSizes = document.querySelectorAll(".choose-size span");
+      const colorPalette = document.querySelectorAll(".choose-color span");
+
+      var activeTab = 0;
+      var root = document.querySelector(':root');
+
+      profiles.push(
+      {% for date in dates %}
+
+        {
+          id: {{ date.user_id }},
+          profilePic: "media/{{ date.profileimg }}",
+          name: "{{ date.first_name }}",
+          favGameOne: "{{ date.fav_game }}" ,
+          favGameTwo: "{{ date.sec_fav_game }}" ,
+          favGameThree: "{{ date.third_fav_game }}" ,
+          age: "{{ date.age }}" ,
+          label: "Heterosexual",
+          status: "Online",
+          country: "UK",
+          bio: "{{ date.bio }}"
+        },
+
+      {% endfor %}
+      );
+
+      likeButton.addEventListener("click", function (e) { 
+        $.ajax({
+          url : '/actions/like-date',
+          data : {
+            "csrfmiddlewaretoken": csrfToken,
+            "value" : profiles[profileCount].id.toString(),
+          },
+          method : 'POST',
+          success : function(r) { 
+            remove(e); 
+          }
+        });
+      }, false);
+
+      passButton.addEventListener("click", function (e) { remove(e); }, false);
+
+      window.onload = function startup() {
+        for (let i = 0; i < tabCount; i++) {
+          document.querySelector('.' + tabs[i] + '-tab').style.visibility = 'hidden';
+          document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
+          try { document.querySelector('#' + tabs[i]).addEventListener('click', openTab) } catch {}
+        }
+
+        document.querySelector('.' + tabs[0] + '-tab').style.visibility = 'visible';
+        document.querySelector('.' + tabs[0] + '-tab').style.display = 'block';
+
+        let font = getCookie('fontSize');
+        if (font != "") { document.querySelector('html').style.fontSize = font; }
+
+        let color1 = getCookie('color1');
+        let color2 = getCookie('color2');
+
+        if (color1 != "")
+        {
+          document.documentElement.style.setProperty('--color-primary-1', color1);
+          document.documentElement.style.setProperty('--color-primary-2', color2);
+        }
+
+        addProfile();
+      }
+
+      function remove() {
+        element = document.getElementById("date-card");
+        element.parentNode.removeChild(element);
+
+        profileCount++;
+        addProfile();
+      }
+
+      function acceptDate(dateId) {
+        $.ajax({
+          url : '/actions/accept-date',
+          data : {
+            "csrfmiddlewaretoken": csrfToken,
+            "value" : dateId.toString(),
+          },
+          method : 'POST',
+        });
+
+        document.getElementById(dateId.toString() + "request").remove();
+      }
+
+      function denyDate(dateId) {
+        $.ajax({
+          url : '/actions/deny-date',
+          data : {
+            "csrfmiddlewaretoken": csrfToken,
+            "value" : dateId.toString(),
+          },
+          method : 'POST',
+        });
+
+        document.getElementById(dateId.toString() + "request").remove();
+      }
+
+      function loadMessages(chatId) {
+        $.ajax({
+          url : '/actions/load-messages',
+          data : {
+            "csrfmiddlewaretoken": csrfToken,
+            "value" : chatId.toString(),
+          },
+          success : function (r) {
+            rawOpenTab(4);
+            currentChatId = chatId;
+            document.querySelector('.messaging-tab .chat').innerHTML = '';
+
+            document.querySelector('.msg-header .profile-photo img').src = r.img;
+            document.querySelector('.msg-header .msg-info h2').innerHTML = r.person;
+            document.querySelector('.msg-header .msg-info p').innerHTML = r.doing;
+
+            for (var i = 0; i < r.msgs.length; i++) {
+              document.querySelector('.messaging-tab .chat').insertAdjacentHTML("beforeend", 
+              `<div class="message">` + r.msgs[i] + `</div>`);
+            }
+
+            updateMessages();
+          },
+          method : 'POST',
+        });
+      }
+
+      function updateMessages() {
+        if (watchingMessages) {
+          $.ajax({
+            url : '/actions/update-messages',
+            data : {
+              "csrfmiddlewaretoken": csrfToken,
+            },
+            timeout: 60000,
+            success : function (r) {
+              for (var i = 0; i < r.value.length; i++) {
+                document.querySelector('.messaging-tab .chat').insertAdjacentHTML("beforeend", 
+                `<div class="message">` + r.value[i] + `</div>`);
+              }
+
+              updateMessages()
+            },
+            error : function () {
+              updateMessages()
+            },
+            method : 'POST',
+          });
+        }
+      }
+
+      document.querySelector(".input-msg").addEventListener("keyup", function (event) {
+        if (event.keyCode == 13) {
+          $.ajax({
+            url : '/actions/submit-message',
+            data : { "csrfmiddlewaretoken": csrfToken, "chatId" : currentChatId.toString(), 
+            "msg" : document.querySelector(".input-msg").value },
+            success : function (r) {
+              document.querySelector('.messaging-tab .chat').insertAdjacentHTML("beforeend", 
+                  `<div class="message">` + r.msg + `</div>`); 
+              document.querySelector(".input-msg").value = "";
+                },
+            method : 'POST',
+          });
+        }
+      });
+
+      function addProfile() {
+        if (profileCount < profiles.length)
+        {
+          content.insertAdjacentHTML("afterbegin",
+          `<div id="date-card"><div class="top-card">
+          <img src="` + profiles[profileCount].profilePic + `" class="top-img">
+          <div style="line-height: 1.1;">
+            <h3>` + profiles[profileCount].name + `</h3>
+            <h4>Fav Games:</h4>
+            <p class="text-muted">` + profiles[profileCount].favGameOne + `<br>` + profiles[profileCount].favGameTwo + `<br>` + profiles[profileCount].favGameThree + `</p>
+            <p><b>Age:</b> ` + profiles[profileCount].age + `</p>
+            <p><b>Label:</b> Heterosexual</p>
+            <p><b>Status: </b> Online</p>
+            <p><b>Country: </b> United Kingdom</p>
+          </div>
+        </div>
+        <div class="bottom-card">
+          <h4>Bio</h4>
+          <p class="text-muted">` + profiles[profileCount].bio + `</p>
+        </div></div>`
+          );
+        }
+        else
+        {
+        content.insertAdjacentHTML("afterbegin",
+        `<div style="margin: auto; text-align: center;" class="date-card">
+        <h2>*Cricket Noises*</h2>
+        <p>Looks like you reached the limit, come back later in [amount] hours later</p>
+        <h4 style="margin-top: 2rem;">Why man? '-'</h4>
+        <p>You might think we do it to make you buy our subscription (which you would be right) 
+          but we also do it to encourage a more authentic experience rather than just constant swiping
+        </p>
+      </div>`);
+        }
+      }
+
+      const openTab = (e) => {
+        if (tabs.includes(e.target.id)) {
+          for (let i = 0; i < tabCount; i++) {
+            if (tabs[i] == e.target.id) {
+              document.querySelector('.' + tabs[i] + '-tab').style.visibility = 'visible';
+              document.querySelector('.' + tabs[i] + '-tab').style.display = 'block';
+          } else {
+            document.querySelector('.' + tabs[i] + '-tab').style.visibility = 'hidden';
+            document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
+            }
+          }
+
+          if (tabs[i] == "messaging") { watchingMessages = true; }
+          else { watchingMessages = false; }
+        }
+      }
+      
+      function rawOpenTab(e) {
+        for (let i = 0; i < tabCount; i++) {
+          if (i == e) {
+            document.querySelector('.' + tabs[i] + '-tab').style.visibility = 'visible';
+            document.querySelector('.' + tabs[i] + '-tab').style.display = 'block';
+        } else {
+          document.querySelector('.' + tabs[i] + '-tab').style.visibility = 'hidden';
+          document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
+          }
+        }
+      }
+      
+      // Font Size Changing
+      
+      fontSizes.forEach(size => {
+        let fontSize;
+      
+        size.addEventListener('click', () => {
+          if (size.classList.contains('font-size-1')) { fontSize = '10px'; }
+        else if (size.classList.contains('font-size-2')) { fontSize = '13px'; }
+        else if (size.classList.contains('font-size-3')) { fontSize = '16px'; }
+        else if (size.classList.contains('font-size-4')) { fontSize = '18px'; }
+        else if (size.classList.contains('font-size-5')) { fontSize = '20px'; }
+      
+        document.querySelector('html').style.fontSize = fontSize;
+        document.cookie = "fontSize=" + fontSize;
+        })
+      })
+      
+      // Color Palette Changing
+      
+      colorPalette.forEach(color => {
+        let color1;
+        let color2;
+      
+        color.addEventListener('click', () => {
+          if (color.classList.contains('color-1')) { color1 = '#2E3192'; color2 = '#1BFFFF'; }
+          if (color.classList.contains('color-2')) { color1 = '#D4145A'; color2 = '#FBB03B'; }
+          if (color.classList.contains('color-3')) { color1 = '#009245'; color2 = '#FCEE21'; }
+          if (color.classList.contains('color-4')) { color1 = '#662D8C'; color2 = '#ED1E79'; }
+          if (color.classList.contains('color-5')) { color1 = '#BFF098'; color2 = '#6FD6FF'; }
+      
+          document.documentElement.style.setProperty('--color-primary-1', color1);
+          document.documentElement.style.setProperty('--color-primary-2', color2);
+      
+          document.cookie = "color1=" + color1;
+          document.cookie = "color2=" + color2;
+        })
+      })
+      
+      // Cookie Finding
+      
+      function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+    </script>
   </body>
 </html>

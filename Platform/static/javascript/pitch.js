@@ -1,8 +1,8 @@
 const tabs = ["pitch", "devlog", "faq", "about"];
 const tabCount = 4;
 
-const devTabs = ["devHelp", "release0", "patch0-1"]
-const devTabsCount = 3;
+const devTabs = ["devHelp"]
+const devTabsCount = 1;
 
 window.onload = function startup() {
   for (let i = 0; i < tabCount; i++) {

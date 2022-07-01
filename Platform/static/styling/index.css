@@ -1,26 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-:root {
-  --color-white: hsl(252, 30%, 100%);
-  --color-light: hsl(252, 30%, 95%);
-  --color-gray: hsl(252, 15%, 65%);
-  --color-primary: hsl(252, 75%, 60%);
-  --color-secondary: hsl(252, 100%, 90%);
-  --color-success: hsl(120, 95%, 65%);
-  --color-danger: hsl(0, 95%, 65%);
-  --color-dark: hsl(252, 30%, 17%);
-  --color-black: hsl(252, 30%, 10%);
-
-  --border-radius: 0.75rem;
-  --card-border-radius: 1rem;
-  --btn-padding: 0.6rem 2rem;
-  --search-padding: 0.6rem 1rem;
-  --card-padding: 1rem;
-
-  --sticky-top-left: 5.4rem;
-  --sticky-top-right: -18rem;
-}
-
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -36,14 +15,7 @@ body {
   color: var(--color-dark);
   background: var(--color-light);
   overflow-x: hidden;
-
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
   overflow-y: scroll;
-}
-
-body::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
 }
 
 .container {
@@ -54,13 +26,13 @@ body::-webkit-scrollbar {
 .profile-photo {
   width: 2.7rem;
   aspect-ratio: 1/1;
-  border-radius: 50%;
   overflow: hidden;
 }
 
 img {
   display: block;
   width: 100%;
+  height: 100%;
 }
 
 .middle .card div {
@@ -228,8 +200,14 @@ main .container .right {
 .messages .message {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   align-items: start;
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+}
+
+.messages .message:hover {
+  background: var(--color-light);
 }
 
 .messages .message:last-child {
@@ -249,6 +227,90 @@ main .container .right {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.messaging-tab .msg-header {
+  display: grid;
+  grid-template-columns: 5rem auto;
+  grid-column-gap: 2rem;
+  background: var(--color-light);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-bottom: 1.5rem;
+}
+
+.msg-header {}
+
+.chat::-webkit-scrollbar {
+  width: 15px;
+}
+
+.chat::-webkit-scrollbar-track {
+  background: var(--color-light);
+  border-radius: 10px;
+}
+
+.chat::-webkit-scrollbar-thumb {
+  background: #ee0979;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(var(--color-primary-1), var(--color-primary-2));
+  background: linear-gradient(var(--color-primary-1), var(--color-primary-2));
+  border-radius: 10px;
+}
+
+.messaging-tab .msg-header .profile-photo {
+  height: 5rem;
+  width: 5rem;
+}
+
+.messaging-tab .chat {
+  height: 25rem;
+  overflow-y: scroll;
+  grid-template-columns: auto;
+}
+
+.messaging-tab .chat .message {
+  background: none;
+  padding: 0rem 1rem;
+  border-radius: 0.7rem;
+}
+
+.messaging-tab .msg-input {
+  background: var(--color-light);
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+  width: 94%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1rem 1rem 1rem auto 7rem;
+  grid-column-gap: 1rem;
+  height: 4rem;
+}
+
+.messaging-tab .msg-input input[type="submit"] {
+  border-radius: 0.7rem;
+  background: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
+  padding: var(--search-padding);
+  font-weight: bold;
+  color: var(--color-light);
+  width: 7rem;
+  right: 1%;
+}
+
+.messaging-tab .msg-input input[type="input"] {
+  border-radius: 0.5rem;
+  background: none;
+  color: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
+  font-family: "Poppins", sans-serif;
+}
+
+.messaging-tab .msg-input a {
+  height: 1rem;
+  width: 1rem;
+}
+
+.messaging-tab .msg-input a i {
+  width: 1rem;
+  height: 1rem;
 }
 
 .right .requests {
@@ -329,10 +391,6 @@ main .container .right {
   }
 }
 
-.settings .card::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
-}
-
 .settings .font-size {
   margin-top: 5rem;
 }
@@ -365,7 +423,7 @@ main .container .right {
 }
 
 .settings .choose-size span:active {
-  background: var(--color-primary);
+  background: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
 }
 
 .settings .color {
@@ -387,11 +445,11 @@ main .container .right {
   border-radius: 50%;
 }
 
-.settings .choose-color span:nth-child(1) { background: hsl(252, 75%, 60%); }
-.settings .choose-color span:nth-child(2) { background: hsl(52, 75%, 60%); }
-.settings .choose-color span:nth-child(3) { background: hsl(352, 75%, 60%); }
-.settings .choose-color span:nth-child(4) { background: hsl(152, 75%, 60%); }
-.settings .choose-color span:nth-child(5) { background: hsl(202, 75%, 60%); }
+.settings .choose-color span:nth-child(1) { background: linear-gradient(to right, #2E3192 , #1BFFFF); }
+.settings .choose-color span:nth-child(2) { background: linear-gradient(to right, #D4145A , #FBB03B); }
+.settings .choose-color span:nth-child(3) { background: linear-gradient(to right, #009245 , #FCEE21); }
+.settings .choose-color span:nth-child(4) { background: linear-gradient(to right, #662D8C , #ED1E79); }
+.settings .choose-color span:nth-child(5) { background: linear-gradient(to right, #BFF098 , #6FD6FF); }
 
 .settings .background {
   margin-top: 2rem;
@@ -416,7 +474,7 @@ main .container .right {
 }
 
 .settings .choose-bg > div.active {
-  border: 2px solid var(--color-primary);
+  border: 2px solid;
 }
 
 .settings .choose-bg .bg-1 { background: white; color: black; }
@@ -464,9 +522,9 @@ main .container .right {
 /* === Dating Carousel === */
 
 .dating-cards {
-  width: 60%;
+  width: 27rem;
   margin: 2rem auto;
-  height: 60vh;
+  height: 27rem;
 }
 
 .dating-card {
@@ -475,15 +533,18 @@ main .container .right {
   background: var(--color-light);
   border-radius: var(--card-border-radius);
   padding: 2rem;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: auto;
 }
 
 .dating-card .bottom-card h4 {
-  text-align: center;
   margin-top: 0.5rem;
 }
 
 .dating-card img {
   border-radius: var(--card-border-radius);
+  /* height: 100%; */
 }
 
 .date-actions {
@@ -494,12 +555,26 @@ main .container .right {
   margin: 0 auto;
 }
 
-.date-actions a {
+.date-actions #yes {
   padding: var(--card-padding);
-  color: var(--color-dark);
+  color: var(--color-white);
   font-family: "Poppins", sans-serif;
   border-radius: var(--border-radius);
+  background: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.date-actions #nope { background: var(--color-danger); }
-.date-actions #yes { background: var(--color-success); }
+.date-actions #nope {
+  padding: var(--card-padding);
+  font-family: "Poppins", sans-serif;
+  background: var(--color-white);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dating-card .top-card {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 1rem;
+}

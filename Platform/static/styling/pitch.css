@@ -27,10 +27,9 @@
 .navbar {
   overflow: hidden;
   background-color: var(--color-white);
-  position: fixed;
   top: 0;
   width: 96%;
-  margin: 1rem 2%;
+  margin: 1rem 1%;
   border-radius: var(--border-radius);
 }
 

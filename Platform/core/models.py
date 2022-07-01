@@ -36,17 +36,19 @@ class Profile(models.Model):
     sec_fav_game = models.CharField(max_length=10, choices=games, default=1)
     third_fav_game = models.CharField(max_length=10, choices=games, default=1)
 
+    date_requests = models.TextField(default='[]')
+    accepting_messages = models.CharField(default='', max_length=36)
+    messages = models.TextField(default='[]')
+
     def __str__(self):
         return self.user.username
 
-class Post(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='post_images')
-    caption = models.TextField()
-    location = models.CharField(max_length=100, default="My basement")
-    created_at = models.DateTimeField(default=datetime.now)
-    likes = models.IntegerField(default=0)
+class Chat(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    admin = models.IntegerField(default=-1)
+
+    users = models.TextField(blank=True)
+    messages = models.TextField(blank=True)
 
     def __str__(self):
-        return self.user
+        return "Message group created by User #" + str(self.admin)
