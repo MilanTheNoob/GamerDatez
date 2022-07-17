@@ -1,10 +1,10 @@
-const tabs = ["pitch", "devlog", "faq", "about"];
-const tabCount = 4;
+const tabs = ["pitch", "faq", "about"];
+const tabCount = 3;
 
 const devTabs = ["devHelp"]
 const devTabsCount = 1;
 
-window.onload = function startup() {
+$(document).ready(function () {
   for (let i = 0; i < tabCount; i++) {
     document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
     document.querySelector('#' + tabs[i]).addEventListener('click', openTab)
@@ -14,7 +14,7 @@ window.onload = function startup() {
     document.querySelector('.' + devTabs[j] + '-tab').style.display = 'none';
     document.querySelector('#' + devTabs[j]).addEventListener('click', openDevTab);
   }
-}
+});
 
 const openTab = (e) => {
   if (tabs.includes(e.target.id)) {

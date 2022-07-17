@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="../static/styling/global.css"/>
   </head>
   <body>
-    <div class="navbar animate fadeInDown">
+    <div class="navbar animate fadeIn">
       <a href="#" id="pitch">Pitch</a>
-      <a href="#" id="devlog">Devlog</a>
+      <!--<a href="#" id="devlog">Devlog</a> -->
       <a href="#" id="faq">FAQ</a>
       <a href="#" id="about">About</a>
+      <h2>GamerMatchups</h2>
     </div>
     <div class="sections">
       <div class="pitch-tab">
@@ -81,7 +82,7 @@
             </div>
           </div>
           <div class="" style="margin-bottom: 0.5rem; text-align: center;">
-            <p>Well damn, I've reached the end of my pitch.
+            <p style="margin-bottom: 1rem;">Well damn, I've reached the end of my pitch.
             I bet you were hoping that would never end huh? So what do you say you move your lil mouse
             to the sign up button eh? ( ͡° ͜ʖ ͡°)</p>
 
@@ -90,6 +91,7 @@
           </div>
         </div>
       </div>
+      <!--
       <div class="devlog-tab">
         <div class="sidenav">
           <a href="#" id="devHelp">Help</a>
@@ -117,7 +119,8 @@
           </div>
         </div>
       </div>
-      <div class="faq-tab">
+    -->
+      <div class="faq-tab animate fadeIn">
         <div>
           <div style="text-align: center;">
             <h1>FAQ (F***ing Annoying Questions)</h1>
@@ -146,29 +149,52 @@
         </div>
       </div>
       <div class="about-tab">
-        <div class="section">
+        <div class="section fadeIn animate">
           <div class="left">
-            <h1 style="margin-bottom: 1rem;">Origins</h1>
-            <p><i>Thinking of some momentous and moving paragraph of words</i><br><br>
+            <h1>Origins</h1>
+            <p>
+            A semi good idea with a lot of bad code behind it, originally a dating platform then slowly
+            evolving into a general safe place encouraging you to meet people.
             </p>
           </div>
           <div class="right">
             <b>Me:</b> Yeah that would be funny, imagine a dating app for gamers lol<br>
             <b>Someone:</b> Mmmm, wait a minute, what if there was a dating app for gamers?<br>
             <b>Me:</b> But why tho?<br>
-            <b>Someone:</b> Think about it, its something that hasen't really been done before properly?<br>
-            <b>Me:</b> Son of a bitch, im in
+            <b>Someone:</b> Think about it, its something that hasn't really been done before properly?<br>
+            <b>Me:</b> Idk, thats a lot of effort I ain't sure bout it<br>
+            <b>Someone:</b> Think of the clout<br>
+            <b>Me:</b> Son of a bitch, Im in
             </p>
           </div>
         </div>
         
-        <div class="section">
+        <div class="section animate fadeIn one" style="grid-template-columns: 50% 50%;">
           <div class="left">
-            <h1>But Why</h1>
-            <p></p>
+            <h1>Backend</h1>
+            <p>A modern platform using Django with a collection of HTML templates mashed together, pretending
+              to be hyper modern with the backend on fire with millions of errors 
+              (it keeps screaming incorrect CSRF token send help) but managing to rely on Django's established
+              feature set that powers platforms like Instagram.
+            </p>
           </div>
           <div class="right">
-            
+            <p>HTML</p>
+            <div class="skill-container" style="width: 40%;">
+              <div class="skill">40%</div>
+            </div>
+            <p>Python</p>
+            <div class="skill-container" style="width: 30%;">
+              <div class="skill">30%</div>
+            </div>
+            <p>JS & CSS</p>
+            <div class="skill-container" style="width: 20%;">
+              <div class="skill">20%</div>
+            </div>
+            <p>Memes & Outdated References</p>
+            <div class="skill-container" style="width: 100%;">
+              <div class="skill">100%</div>
+            </div>
           </div>
         </div>
         
@@ -182,7 +208,9 @@
         </div>
       </div>
     </div>
-
-    <script type="text/javascript" src="../static/javascript/pitch.js"></script>
+    
+    <script type="text/javascript" src="{% static 'javascript/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/global.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/pitch.js' %}"></script>
   </body>
 </html>

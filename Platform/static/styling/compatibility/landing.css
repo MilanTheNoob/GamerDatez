@@ -1,0 +1,34 @@
+@media screen and (max-width: 992px) {
+    main {
+        display: grid;
+        grid-template-rows: min-content auto;
+        padding: 0.5rem;
+        width: 100%;
+    }
+    .info {
+        position: static;
+        text-align: center;
+        max-width: 100vw;
+        min-width: 100vw;
+    }
+    .info h1 {
+        font-size: 1.5rem;
+    }
+
+    .box {
+        position: static;
+        width: unset;
+    }
+    .inner-box {
+        padding: 1rem;
+    }
+
+    .terms {
+        display: none;
+    }
+
+    .desc {
+        font-size: 0.8rem;
+        text-align: left;
+    }
+}

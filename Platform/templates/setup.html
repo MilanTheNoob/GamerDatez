@@ -4,57 +4,91 @@
   <head>
     <meta charset="utf-8">
     <title>GamerDatez Setup</title>
+
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static 'styling/setup.css' %}"/>
     <link rel="stylesheet" href="{% static 'styling/global.css' %}"/>
   </head>
   <body>
     <div class="entry">
       <h1 class="animate fadeInDown">Oh my lord, you made it!</h1>
-      <p class="animate fadeInDown one">Before jumping in, lets go through a quick n easy setup so you can frictionlessly find
-      people to engage with!</p>
+      <p class="animate fadeInDown one">Ready to meet your new safe space?</p>
     </div>
-    <div class="card animate fadeIn one">
+
+    <p id="setupError" class="animate fadeInDown"
+    style="color: var(--color-danger); text-align: center; margin: 1rem;">test</p>
+    <div class="card animate fadeIn one" style="margin-bottom: 2rem;">
       <form id="setupForm" action="/actions/finish-setup" method="POST"> {% csrf_token %}</form>
-      <form id="ppForm" action="/actions/submit-avatar" method="POST"> {% csrf_token %}</form>
+      <form id="ppForm" onsubmit="submitAvatar(); return false;" method="POST"> {% csrf_token %}</form>
 
       <div class="holder">
-        <div class="section general-tab">
+        <div class="section general-tab animate fadeIn">
+          <div>
           <h2>General</h2>
-          <p class="text-muted">Good ol' standard information we need to sel- I MEAN improve your tailored
-          experience eh?</p>
+          <p class="text-muted">Good old standard information we need to sel- I MEAN improve your tailored
+          experience mhm.<br><br>This info is inputted into our <i>advanced</i> algorithm of if statements
+          to provide dates, groups & friends who will actually laugh at your jokes.</p>
+          <iframe style="margin-top: 1.5rem;" src="https://giphy.com/embed/Tl2AK8HOHj7SU" width="240" height="100" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          <p style="font-size: 0.65rem;" class="text-muted">Ok at this point I'm just scrolling through Giphy more than I am bugixing</p>
+          </div>
+          <div>
           <h4>Your Name</h4>
           <div class="name">
             <input form="setupForm" type="text" name="first_name" value="" placeholder="First Name">
             <input form="setupForm" type="text" name="last_name" value="" placeholder="Last Name">
           </div>
-          <h4>Age</h4>
-          <input form="setupForm" type="number" min="14" max="110" name="age" placeholder="Age" value="">
-          <h4>Date of Birth</h4>
-          <input form="setupForm" type="date" name="birth_date" placeholder="">
-          <h4>Country (Two Letter Code)</h4>
-          <input form="setupForm" type="text" name="country" size="2" value="Country">
-          <h4>Gender</h4>
-          <select form="setupForm" name="sex" placeholder="Gender">
-            <option value="0">Male</option>
-            <option value="1">Female</option>
-            <option value="2">Other</option>
-          </select>
-          <h4>Interested in</h4>
-          <select form="setupForm" name="preference" placeholder="Preference">
-            <option value="0">Male</option>
-            <option value="1">Female</option>
-            <option value="2">Other</option>
-          </select>
+          <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+            <div>
+              <h4>Age</h4>
+              <input form="setupForm" type="number" min="14" max="110" value="18" name="age" placeholder="Age" value="">
+            </div>
+            <div>
+              <h4>Date of Birth</h4>
+              <input form="setupForm" type="date" name="birth_date" placeholder="">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+            <div>
+              <h4>Gender</h4>
+              <select form="setupForm" name="sex" placeholder="Gender">
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+                <option value="2">Other</option>
+              </select>
+            </div>
+            <div>
+              <h4>Interested in</h4>
+              <select form="setupForm" name="preference" placeholder="Preference">
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+                <option value="2">Other</option>
+              </select>
+            </div>
+          </div>
           <h4>Profile Bio</h4>
-          <textarea form="setupForm" name="bio" rows="8" cols="80" placeholder="Bio"></textarea>
-          <br><a id="gaming" class="btn btn-primary">Continue</a>
+          <textarea form="setupForm" name="bio" rows="8" cols="80" 
+          placeholder="Please, we need an epic story with an emotional rollercoaster, or else ..."></textarea>
+          <br><a onclick="checkGeneral()" class="btn btn-primary">Continue</a>
         </div>
-        <div class="section avatar-tab">
-          <h2>Avatar</h2>
+        </div>
+        <div class="section avatar-tab animate fadeIn">
+          <div>
+          <h1>Avatar</h1>
+          <!--<iframe src="https://giphy.com/embed/cKnWcUbaxHtekL3Tpe" width="240" height="129" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>-->
           <p class="text-muted">Wooo! Lets jump in straight first into your Avatar, this isn't first cus
           the platform is poorly coded and it needs to be this way mhm, we are ... just rly excited about
-          your avatar.</p>
-          <h4>The color of your skin 👨🏻‍🦳👨🏼‍🦳👨🏽‍🦳👨🏾‍🦳👨🏿‍🦳</h4>
+          your avatar.<br><br><i>cough</i><br><br>Want to buy a subscription ? <br>( ﾉ ﾟｰﾟ)ﾉ</p>
+          
+          <div class="avatarHolder">
+            <h3>Your Avatar</h3>
+            <img class="avatarImg">
+            <p class="text-muted" style="font-size: 0.7rem; display: inline-block;">Look at this duuude</p>
+          </div>
+          </div>
+          <div>
+            <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+              <div>
+          <h4>Skin Color</h4>
           <select form="ppForm" class="" name="pp_skin" placeholder="Skin Color">
             <option value="BLACK">Black</option>
             <option value="TANNED">Tanned</option>
@@ -64,48 +98,9 @@
             <option value="BROWN">Brown</option>
             <option value="DARK_BROWN">Dark Brown</option>
           </select><br>
-          <h4>The color of your hair / hat  🎩</h4>
-          <select form="ppForm" class="" name="pp_hair_color" placeholder="Hair Color">
-            <option value="BLACK">Black</option>  
-          </select><br>
-          <h4>Style of your hair / hat 🤠</h4>
-          <select form="ppForm" class="" name="pp_top" placeholder="Hair & Hats">
-            <option value="EYE_PATCH">Eye Patch </option>
-            <option value="HAT">Hat</option>
-            <option value="HIJAB">Hijab</option>
-            <option value="TURBAN">Turban</option>
-            <option value="WINTER_HAT1">Winter Hat #1</option>
-            <option value="WINTER_HAT2">Winter Hat #2</option>
-            <option value="WINTER_HAT3">Winter Hat #3</option>
-            <option value="WINTER_HAT4">Winter Hat #4</option>
-            <option value="LONG_HAIR_BIG_HAIR">Long Hair</option>
-            <option value="LONG_HAIR_BOB">Bob Hair</option>
-            <option value="LONG_HAIR_BUN">Bun Hair</option>
-            <option value="LONG_HAIR_CURLY">Long Curly Hair</option>
-            <option value="LONG_HAIR_CURVY">Curvy Hair</option>
-            <option value="LONG_HAIR_DREADS">Dreads</option>
-            <option value="LONG_HAIR_FRIDA">Frida</option>
-            <option value="LONG_HAIR_FRO">Fro</option>
-            <option value="LONG_HAIR_FRO_BAND">Fro (with a band)</option>
-            <option value="LONG_HAIR_NOT_TOO_LONG">Medium Length Hair</option>
-            <option value="LONG_HAIR_MIA_WALLACE">Mia Wallace Style</option>
-            <option value="LONG_HAIR_SHAVED_SIDES">Shaved Sides</option>
-            <option value="LONG_HAIR_STRAIGHT">Straight Hair</option>
-            <option value="LONG_HAIR_STRAIGHT2">Straight Hair #2</option>
-            <option value="LONG_HAIR_STRAIGHT_STRAND">Stranded Hair</option>
-            <option value="SHORT_HAIR_DREADS_01">Short Dreaded Hair</option>
-            <option value="SHORT_HAIR_DREADS_02">Short Dreaded Hair #2</option>
-            <option value="SHORT_HAIR_FRIZZLE">Frizzled Hair</option>
-            <option value="SHORT_HAIR_SHAGGY_MULLET">Mullet</option>
-            <option value="SHORT_HAIR_SHORT_CURLY">Short n Curly Hair</option>
-            <option value="SHORT_HAIR_SHORT_FLAT">Flat n Short Hair</option>
-            <option value="SHORT_HAIR_SHORT_ROUND">Round Hair</option>
-            <option value="SHORT_HAIR_SHORT_WAVED">Waved Hair</option>
-            <option value="SHORT_HAIR_SIDES">Sides only (short)</option>
-            <option value="SHORT_HAIR_THE_CEASAR">Ceasar</option>
-            <option value="SHORT_HAIR_THE_CEASAR_SIDE_PART">Ceasar (sides only)</option>
-          </select><br>
-          <h4>Facial Hair 🪒</h4>
+        </div>
+          <div>
+            <h4>Facial Hair</h4>
           <select form="ppForm" class="" name="pp_facial">
             <option value="DEFAULT">None</option>
             <option value="BEARD_MEDIUM">Medium Beard</option>
@@ -114,7 +109,58 @@
             <option value="MOUSTACHE_FANCY">Fancy Moostache</option>
             <option value="MOUSTACHE_MEDIUM">Standard Moustache</option>
           </select><br>
-          <h4>Clothing 👔</h4>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+            <div>
+              <h4>Hat Color</h4>
+              <select form="ppForm" class="" name="pp_hair_color" placeholder="Hair Color">
+                <option value="BLACK">Black</option>  
+              </select><br>
+            </div>
+            <div>
+              <h4>Hat Style</h4>
+              <select form="ppForm" class="" name="pp_top" placeholder="Hair & Hats">
+                <option value="EYE_PATCH">Eye Patch </option>
+                <option value="HAT">Hat</option>
+                <option value="HIJAB">Hijab</option>
+                <option value="TURBAN">Turban</option>
+                <option value="WINTER_HAT1">Winter Hat #1</option>
+                <option value="WINTER_HAT2">Winter Hat #2</option>
+                <option value="WINTER_HAT3">Winter Hat #3</option>
+                <option value="WINTER_HAT4">Winter Hat #4</option>
+                <option value="LONG_HAIR_BIG_HAIR">Long Hair</option>
+                <option value="LONG_HAIR_BOB">Bob Hair</option>
+                <option value="LONG_HAIR_BUN">Bun Hair</option>
+                <option value="LONG_HAIR_CURLY">Long Curly Hair</option>
+                <option value="LONG_HAIR_CURVY">Curvy Hair</option>
+                <option value="LONG_HAIR_DREADS">Dreads</option>
+                <option value="LONG_HAIR_FRIDA">Frida</option>
+                <option value="LONG_HAIR_FRO">Fro</option>
+                <option value="LONG_HAIR_FRO_BAND">Fro (with a band)</option>
+                <option value="LONG_HAIR_NOT_TOO_LONG">Medium Length Hair</option>
+                <option value="LONG_HAIR_MIA_WALLACE">Mia Wallace Style</option>
+                <option value="LONG_HAIR_SHAVED_SIDES">Shaved Sides</option>
+                <option value="LONG_HAIR_STRAIGHT">Straight Hair</option>
+                <option value="LONG_HAIR_STRAIGHT2">Straight Hair #2</option>
+                <option value="LONG_HAIR_STRAIGHT_STRAND">Stranded Hair</option>
+                <option value="SHORT_HAIR_DREADS_01">Short Dreaded Hair</option>
+                <option value="SHORT_HAIR_DREADS_02">Short Dreaded Hair #2</option>
+                <option value="SHORT_HAIR_FRIZZLE">Frizzled Hair</option>
+                <option value="SHORT_HAIR_SHAGGY_MULLET">Mullet</option>
+                <option value="SHORT_HAIR_SHORT_CURLY">Short n Curly Hair</option>
+                <option value="SHORT_HAIR_SHORT_FLAT">Flat n Short Hair</option>
+                <option value="SHORT_HAIR_SHORT_ROUND">Round Hair</option>
+                <option value="SHORT_HAIR_SHORT_WAVED">Waved Hair</option>
+                <option value="SHORT_HAIR_SIDES">Sides only (short)</option>
+                <option value="SHORT_HAIR_THE_CEASAR">Ceasar</option>
+                <option value="SHORT_HAIR_THE_CEASAR_SIDE_PART">Ceasar (sides only)</option>
+              </select><br>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+            <div>
+          <h4>Clothing</h4>
           <select form="ppForm" class="" name="pp_clothes">
             <option value="BLAZER_SHIRT">Blazer Shirt</option>
             <option value="BLAZER_SWEATER">Blazer Sweater</option>
@@ -126,7 +172,9 @@
             <option value="SHIRT_SCOOP_NECK">Shirt Scoop Neck</option>
             <option value="SHIRT_V_NECK">Shirt V Neck</option>
           </select><br>
-          <h4>Clothing Graphics 🤳🏿</h4>
+            </div>
+            <div>
+          <h4>Clothing Graphics</h4>
           <select form="ppForm" class="" name="pp_clothes_graphics">
             <option value="BAT">Bat 🦇</option>
             <option value="CUMBIA">Cumbia 💃</option>
@@ -139,12 +187,16 @@
             <option value="BEAR">Bear 🐻</option>
             <option value="SKULL">Skull 💀</option>
           </select><br>
-          <h4>Clothing Color 🎨</h4>
+            </div>
+          </div>
+          <h4>Clothing Colors</h4>
           <select form="ppForm" class="" name="pp_clothes_color">
             <option value="WHITE">White</option>
             <option value="BLACK">Black</option>
           </select><br>
-          <h4>Mouth Type ^_^</h4>
+          <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+          <div>
+          <h4>Mouth Type</h4>
           <select form="ppForm" class="" name="pp_mouth">
             <option value="DEFAULT">Natural 😎</option>
             <option value="CONCERNED">Concerned ☹️</option>
@@ -159,10 +211,22 @@
             <option value="TWINKLE">Twinkle 🤩</option>
             <option value="VOMIT">Vomit 🤮</option>
           </select><br>
-          <h4>Nose Type</h4>
-          <select form="ppForm" class="" name="pp_nose">
-            <option value="DEFAULT">Standard (More Comin Soon)</option>
+        </div>
+        <div>
+          <h4>Glasses</h4>
+          <select form="ppForm" class="" name="pp_glasses">
+            <option value="DEFAULT">None</option>
+            <option value="KURT">Kurt</option>
+            <option value="PRESCRIPTION_01">Prescription #1</option>
+            <option value="PRESCRIPTION_02">Prescription #2</option>
+            <option value="ROUND">Round</option>
+            <option value="SUNGLASSES">Sunglasses</option>
+            <option value="WAYFARERS">Wayfarers</option>
           </select><br>
+        </div>
+      </div>
+          <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 1rem;">
+            <div>
           <h4>Eyes Type</h4>
           <select form="ppForm" class="" name="pp_eyes">
             <option value="DEFAULT">Standard</option>
@@ -177,6 +241,8 @@
             <option value="WINK">Wink</option>
             <option value="WINK_WACKY">Wacky Wink</option>
           </select><br>
+            </div>
+            <div>
           <h4>Eyebrow Type</h4>
           <select form="ppForm" class="" name="pp_eyebrow">
             <option value="DEFAULT_NATURAL">Standard</option>
@@ -188,59 +254,192 @@
             <option value="UP_DOWN_NATURAL">Up Down</option>
             <option value="FROWN_NATURAL">Frown</option>
           </select><br>
-          <h4>Glasses</h4>
-          <select form="ppForm" class="" name="pp_glasses">
-            <option value="DEFAULT">None</option>
-            <option value="KURT">Kurt</option>
-            <option value="PESCRIPTION_01">Prescription #1</option>
-            <option value="PRESCRIPTION_02">Prescription #2</option>
-            <option value="ROUND">Round</option>
-            <option value="SUNGLASSES">Sunglasses</option>
-            <option value="WAYFARERS">Wayfarers</option>
-          </select><br>
-
-          <br>
-          <!--- <button form="ppForm" type="submit" class="btn" style="background: var(color-light); margin-right: 0.5rem;"
-          onclick="document.querySelector('.avatar-continue-btn').style.display = '';">Generate Avatar</button>
-          <a id="general" class="btn btn-primary avatar-continue-btn">Continue</a>--->
+            </div>
+          </div>
 
           <button form="ppForm" type="submit" class="btn btn-primary"
-          onclick="document.cookie = 'tab=1path=/';">Continue</button>
+          onclick="document.cookie = 'tab=1path=/';" style="width: 100%; margin-top: 2rem;">Continue</button>
         </div>
-        <div class="section personality-tab">
-          <h2>Personality</h2>
-          <h4>How Intra - Extraverted You Are (1 - Extremely Intraverted, 5 - Extremely Extraverted)</h4>
-          <input form="setupForm" type="number" name="version" value="">
-
-          <br><a id="gaming" class="btn btn-primary">Continue</a>
         </div>
-        <div class="section gaming-tab">
+        <div class="section gaming-tab animate fadeIn">
+          <div>
           <h2>Gaming</h2>
-          <h4>Favourite Three Game</h4>
-          <select form="setupForm" class="" name="fav_game_1">
-            {% for val, name in game_options %}
-            <option value="{{val}}">{{name}}</option>
-            {% endfor %}
-          </select>
-          <select form="setupForm" class="" name="fav_game_2">
-            {% for val, name in game_options %}
-            <option value="{{val}}">{{name}}</option>
-            {% endfor %}
-          </select>
-          <select form="setupForm" class="" name="fav_game_3">
-            {% for val, name in game_options %}
-            <option value="{{val}}">{{name}}</option>
-            {% endfor %}
-          </select>
-          <br><a id="premium" class="btn btn-primary">Continue</a>
+          <p>Now onto the seriously important questions & tastes of the gaming community<br><br>
+            <i>Is cereal a soup ?</i><br><br>But seriously these are questions that allow us to gauge
+          what people you will interact well with. And if you want to join a group it will help bias
+          to groups you will fit into better.<br><br><i>Its dangerous to go alone! Take this</i><br>
+          <iframe src="https://giphy.com/embed/31UAOmD3fMR2fJE2tN" width="120" height="120" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></p>
+          </div>
+          <div>
+          <h4>Favourite Three Games</h4>
+          <p style="margin-bottom: 0.5rem; color: var(--color-gray); font-size: 0.8rem;">We know these aren't all the games in the world, we just want to know your tastes</p>
+          <div style="display: grid; grid-template-columns: auto auto auto; grid-column-gap: 1rem;">
+            <div class="drop-down game-dd game1">
+              <div class="selected">
+                <a href="#"><span>Please select</span><i class="fas fa-arrow-down"></i></a>
+              </div>
+              <div class="options">
+                <ul>
+                </ul>
+              </div>
+            </div>
+            <div class="drop-down game-dd game2">
+              <div class="selected">
+                <a href="#"><span>Please select</span><i class="fas fa-arrow-down"></i></a>
+              </div>
+              <div class="options">
+                <ul>
+                </ul>
+              </div>
+            </div>
+            <div class="drop-down game-dd game3">
+              <div class="selected">
+                <a href="#"><span>Please select</span><i class="fas fa-arrow-down"></i></a>
+              </div>
+              <div class="options">
+                <ul>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <h4 style="margin-top: 1rem;">Play Styles</h4>
+          <p style="margin-bottom: 0.4rem; color: var(--color-gray); font-size: 0.8rem;">You a strategist or an anarchist? Well lets find out!</p>
+          <div>
+            <div style="margin-bottom: 1rem; display: grid; grid-template-columns: auto min-content; grid-column-gap: 1rem;">
+              <p style="font-size: 0.9rem; margin-top: auto; margin-bottom: auto;">In combat games</p>
+              <div class="drop-down">
+                <div class="selected">
+                  <a href="#"><span>Please select</span><i class="fas fa-arrow-down"></i></a>
+                </div>
+                <div class="options">
+                  <ul>
+                    <li><a href="#">Screw you I sprint in<span class="value">Aggressive</span></a></li>
+                    <li><a href="#">I camp sniping & slowly getting stuff<span class="value">Camper</span></a></li>
+                    <li><a href="#">Haha lol, I die before I can do aything<span class="value">Useless</span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div style="margin-bottom: 0.7rem; display: grid; grid-template-columns: auto min-content; grid-column-gap: 1rem;">
+              <p style="font-size: 0.9rem; margin-top: auto; margin-bottom: auto;">In adventure games</p>
+              <div class="drop-down">
+                <div class="selected">
+                  <a href="#"><span>Please select</span><i class="fas fa-arrow-down"></i></a>
+                </div>
+                <div class="options">
+                  <div class="optionsHolder">
+                  <ul>
+                    <li><a href="#">I just go through the motions<span class="value">Standard</span></a></li>
+                    <li><a href="#">I try to make the world burn<span class="value">Anarchist</span></a></li>
+                    <li><a href="#">I want to break the game<span class="value">Game Breaker</span></a></li>
+                    <li><a href="#">I want to complete it all<span class="value">Completionist</span></a></li>
+                    <li><a href="#">Idk, I just play the basic story<span class="value">Bare Minimum</span></a></li>
+                    <li><a href="#">I am speeeed, must complete in 5 minutes<span class="value">Speed Runner</span></a></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4 style="margin-top: 1rem;">Gamer Personality & Traits</h4>
+          <p style="margin-bottom: 0.5rem; color: var(--color-gray); font-size: 0.8rem;">Its time to find out if cereal is a soup, answer wrong and you are outta here<br>(* ￣︿￣)</p>
+          <div>
+            <div style="margin-bottom: 1rem; display: grid; grid-template-columns: auto min-content; grid-column-gap: 1rem;">
+              <p style="font-size: 0.9rem; margin-top: auto; margin-bottom: auto;">How much time do you game per week (in hours)</p>
+              <input form="setupForm" type="number" min="0" max="84" 
+              name="gameTime" placeholder="Time" value="">
+            </div>
+          </div>
+          <h4 style="text-align: center; margin-top: 3rem;">More being implemented soon</h4>
         </div>
-        <div class="section premium-tab">
-          <h2>A quick message</h2>
+          <br><a id="premium" style="text-align: center;" class="btn btn-primary">Continue</a>
+        </div>
+        <div class="section premium-tab animate fadeIn">
+          <div>
+            <h2>A quick message from our sponsor</h2>
+            <p>
+              We welcomed you to GamerDatez, and now we welcome you to spend money on it 😉<br><br>
+              GamerDatez is a new ongoing freemium platform with all its primary features available to use
+              with no strings attached.<br><br>
 
-          <button form="setupForm" type="submit" name="button">Finish</button>
+              We ask that you consider one of our subscriptions, costing less than two coffees a month and 
+              enrich your experience while also helping us so much.<br><br>
+
+              Either way I would like to welcome you to your new safe social place!<br>
+              <!--<iframe src="https://giphy.com/embed/l0HlHFRbmaZtBRhXG" width="160" height="90" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>-->
+            </p>
+          </div>
+          <div class="sellContent"> <!-- Premium subscriptions -->
+            <div class="sellRow"> <!-- Top 3 row -->
+              <div class="sellCard">
+                <div class="cardHeader">
+                  <div>
+                    <h2>Free</h2>
+                    <p>All the basic features</p>
+                  </div>
+                  <iframe src="https://giphy.com/embed/3s7Jl1xafxWu0qDBoA" width="160" 
+                height="91" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                </div>
+                <p>
+                  Enjoy GamerDatez with all the necessary features in no way limited, a good simple experience.<br><br>
+                  Features:
+                </p>
+                <p style="font-size: 0.8rem; color: var(--color-gray);">
+                  - Basic customisation<br>
+                  - Full access to Social, Gaming & Group features<br>
+                  - Unobtrusive ads that never affect the experience of the platform
+                </p>
+                <a style="text-align: center; position: absolute; width: 90%;left: 5%; bottom: 0%; 
+                margin: 1rem 0rem;" onclick="submitSetup();" class="btn btn-primary">Choose me!</a>
+              </div>
+              <div style="display: grid; grid-template-rows: auto auto; grid-row-gap: 1rem;">
+                <div class="sellCard goldCard">
+                  <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 0.5rem;">
+                    <img src="{% static 'images/gold.jpg' %}" style="height: 2rem; width: 2rem; 
+                    border-radius: 0.5rem; margin-top: 0.5rem;">
+                    <div>
+                      <h2 style="margin: 0;">Gold</h2>
+                      <p style="color: var(--color-gray); margin-top: -0.2rem; font-size: 0.8rem;">£5/mo</p>
+                    </div>
+                  </div>
+                  <p style="font-size: 0.8rem;">
+                    Get a larger set of features & eye candy. Explore beta builds and have an input on future updates.
+                  </p>
+                  <a style="text-align: center; position: absolute; width: 90%;left: 5%; bottom: 0%; margin: 1rem 0rem;" class="btn btn-primary">Coming soon</a>
+                </div>
+                <div class="sellCard goldCard">
+                  <div style="display: grid; grid-template-columns: min-content auto; grid-column-gap: 0.5rem;">
+                    <img src="{% static 'images/diamond.jpg' %}" style="height: 2rem; width: 2rem; 
+                    border-radius: 0.5rem; margin-top: 0.5rem;">
+                    <div>
+                      <h2 style="margin: 0;">Diamond</h2>
+                      <p style="color: var(--color-gray); margin-top: -0.2rem; font-size: 0.8rem;">£20/mo</p>
+                    </div>
+                  </div>
+                  <p style="font-size: 0.8rem;">
+                    Massive customisation & extra features along with access to Alpha builds and feedback on provisional features.
+                  </p>
+                  <a style="text-align: center; position: absolute; width: 90%;left: 5%; bottom: 0%; margin: 1rem 0rem;" class="btn btn-primary">Coming soon</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="obsidianCard" style="background-image: url({% static 'images/obsidian.jpg' %});"> <!-- Special horizontal subscription -->
+              <div class="obsidianInfo" style="font-family: ">
+                <h3>Or a new exciting subscription that can do so much more</h3>
+                <p>Idk I run out of marketing hype words ...</p>
+              </div>
+              <div>
+                <a style="text-align: center;" class="btn btn-primary">In the works</a>
+                <p style="font-size: 0.7rem;" class="text-muted" >Cmon you know want to</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="{% static 'javascript/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/global.js' %}"></script>
     <script type="text/javascript" src="{% static 'javascript/setup.js' %}"></script>
   </body>
 </html>

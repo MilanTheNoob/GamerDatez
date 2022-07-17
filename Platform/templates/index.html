@@ -13,9 +13,9 @@
     <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static 'styling/index.css' %}"/>
     <link rel="stylesheet" href="{% static 'styling/global.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styling/compatibility/index.css' %}"/>
   </head>
   <body>
-    <main>
       <div class="container">
         <div class="left">
           <a class="profile animate fadeInLeft one">
@@ -28,29 +28,29 @@
             </div>
           </a>
 
-          <div class="sidebar animate fadeInLeft two">
+          <div class="sidebar animate fadeInLeft one">
             <a class="menu-item" id="home">
-              <span><i class="fa-solid fa-house"></i></span><h3>Home</h3>
+              <span id="home"><i class="fa-solid fa-house" id="home"></i></span><h3>Home</h3>
             </a>
             <a class="menu-item" id="dates">
-              <span><i class="fas fa-heart"></i></span><h3>Find Dates</h3>
+              <span id="dates"><i class="fas fa-heart" id="dates"></i></span><h3>Find Dates</h3>
             </a>
             <a class="menu-item" id="messages">
-              <span><i class="fas fa-comment"><small class="notification-count">6</small></i></span><h3>Messages</h3>
+              <span id="messages"><i class="fas fa-comment" id="messages"><small class="notification-count">6</small></i></span><h3>Messages</h3>
             </a>
             <a class="menu-item" id="settings">
-              <span><i class="fas fa-cog"></i></span><h3>Settings</h3>
+              <span id="settings"><i class="fas fa-cog" id="settings"></i></span><h3>Settings</h3>
             </a>
           </div>
         </div>
         <div class="middle">
-          <div class="card animate fadeInDown">
-            <div class="home-tab">
+          <div class="card animate fadeIn">
+            <div class="home-tab animate fadeIn">
               <h2>Home</h2>
               <p class="text-muted">So how many bugs will you run into today then {{user.username}}?</p>
             </div>
-            <div class="dates-tab">
-              <h1>Dates</h1>
+            <div class="dates-tab animate fadeIn">
+              <h2>Dates</h2>
               <div class="dating-cards">
                 <div class="dating-card" id="dating-card">
                 </div>
@@ -62,9 +62,9 @@
               </div>
 
             </div>
-            <div class="messages-tab messages">
+            <div class="messages-tab messages animate fadeIn">
               <h2>Messages</h2>
-              <p class="text-muted">Why did you leave me on read bro ;-;</p>
+              <p class="text-muted" style="margin-bottom: 1rem;">Why did you leave me on read bro ;-;</p>
               {% for msgPreview in msgs_previews %}
               <div class="message" onclick="loadMessages('{{ msgPreview.id }}')">
                 <div class="profile-photo">
@@ -77,7 +77,7 @@
               </div>
               {% endfor %}
             </div>
-            <div class="messaging-tab">
+            <div class="messaging-tab animate fadeIn">
               <div class="msg-header">
                 <div class="profile-photo">
                   <img src="media/profile_images/MilanTheNoob.png" alt="">
@@ -93,16 +93,17 @@
               </div>
 
               <div class="msg-input">
+                <!--
                 <a><i class="fas fa-upload"></i></a>
                 <a><i class="fas fa-grin-squint"></i></a>
                 <a><i class="fas fa-grin-squint-tears"></i></a>
+                -->
                 <input type="input" class="input-msg" name="msg" autocomplete="off" placeholder="Write a cheesy pickup line">
               </div>
             </div>
-            <div class="settings-tab settings">
+            <div class="settings-tab settings animate fadeIn">
               <h2>Settings & Customisation</h2>
-              <p class="text-muted">Manage everything you need from personalisation to your account settings<br><br>
-                More customisation & an actually readable layout is coming soon I promise.</p>
+              <p class="text-muted">Manage everything you need from personalisation to your account settings</p>
 
               <div class="font-size">
                 <h4>Font Size</h4>
@@ -133,8 +134,8 @@
               <div class="background">
                 <h4>Secondary Colors</h4>
                 <div class="choose-bg">
-                  <div class="bg-1 active">
-                    <span></span>
+                  <div class="bg-1">
+                    <span class="active"></span>
                     <h5 for="bg-1">My Eyes!</h5>
                   </div>
                   <div class="bg-2">
@@ -148,12 +149,12 @@
                 </div>
               </div>
 
-              <a class="btn logout-btn" style="text-align: center;" href="logout">Log Out</a>
+              <a class="btn logout-btn" style="text-align: center;" onclick="logout();">Log Out</a>
             </div>
           </div>
         </div>
         <div class="right">
-          <div class="requests animate fadeInRight three">
+          <div class="requests animate fadeInRight two">
             <h4>Requests</h4>
             {% for date in date_requests %}
             <div class="request" id="{{ date.user_id }}request">
@@ -171,9 +172,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="action">
+                <div class="action actionPC">
                   <button class="btn btn-primary" onclick="acceptDate({{ date.user_id }});">Accept</button>
                   <button class="btn" onclick="denyDate({{ date.user_id }});">Ignore</button>
+                </div>
+                <div class="actionMobile">
+                  <button class="btn btn-primary" onclick="acceptDate({{ date.user_id }});"><i class="fas fa-check"></i></button>
+                  <button class="btn" onclick="denyDate({{ date.user_id }});"><i class="fas fa-times"></i></button>
                 </div>
               </div>
             </div>
@@ -181,9 +186,28 @@
           </div>
         </div>
       </div>
-    </main>
-    <script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
+
+      <div class="setupModal">
+        <div class="setupCard">
+          <h1>You like what you see?</h1>
+          <div style="display: grid; grid-template-columns: auto auto; grid-column-gap: 1rem;">
+            <div>
+              <iframe src="https://giphy.com/embed/jyzjPmdKLm2fslKG8C" width="240" height="172" 
+              frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            </div>
+            <div>
+              <h3>Soooo, you want to go all the way? :D</h3>
+              <p>
+                With a couple more clicks here and there you can dive straight in to an all new platform ready to 
+                baby feed you a social life whether you like it or not.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <script type="text/javascript" src="{% static 'javascript/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/global.js' %}"></script>
     <script type="text/javascript">
       const likeButton = document.getElementById("yes");
       const passButton = document.getElementById("nope");
@@ -191,9 +215,6 @@
 
       const profiles = [];
       let profileCount = 0;
-
-      let cookie = document.cookie;
-      let csrfToken = cookie.substring(cookie.indexOf('=') + 1);
 
       let currentChatId = "";
       let watchingMessages = true;
@@ -203,9 +224,25 @@
 
       const fontSizes = document.querySelectorAll(".choose-size span");
       const colorPalette = document.querySelectorAll(".choose-color span");
+      const bgColor = document.querySelectorAll(".choose-bg div");
 
       var activeTab = 0;
       var root = document.querySelector(':root');
+
+      const scrollingElement = document.querySelector(".chat")
+
+      const config = { childList: true };
+
+      const callback = function (mutationsList, observer) {
+        for (let mutation of mutationsList) {
+          if (mutation.type === "childList") {
+            scrollingElement.scrollTo(0, scrollingElement.scrollHeight);
+          }
+        }
+      };
+
+      const observer = new MutationObserver(callback);
+      observer.observe(scrollingElement, config);
 
       profiles.push(
       {% for date in dates %}
@@ -228,6 +265,12 @@
       );
 
       likeButton.addEventListener("click", function (e) { 
+        if ({{ user_profile.user_setup }}) {
+
+        }
+        else {
+
+        }
         $.ajax({
           url : '/actions/like-date',
           data : {
@@ -243,30 +286,21 @@
 
       passButton.addEventListener("click", function (e) { remove(e); }, false);
 
-      window.onload = function startup() {
+      $(document).ready(function () {
         for (let i = 0; i < tabCount; i++) {
           document.querySelector('.' + tabs[i] + '-tab').style.visibility = 'hidden';
           document.querySelector('.' + tabs[i] + '-tab').style.display = 'none';
-          try { document.querySelector('#' + tabs[i]).addEventListener('click', openTab) } catch {}
+          try { document.querySelectorAll('#' + tabs[i])[0].addEventListener('click', openTab) } catch {}
+          try { document.querySelectorAll('#' + tabs[i])[1].addEventListener('click', openTab) } catch {}
+          try { document.querySelectorAll('#' + tabs[i])[2].addEventListener('click', openTab) } catch {}
         }
 
         document.querySelector('.' + tabs[0] + '-tab').style.visibility = 'visible';
         document.querySelector('.' + tabs[0] + '-tab').style.display = 'block';
 
-        let font = getCookie('fontSize');
-        if (font != "") { document.querySelector('html').style.fontSize = font; }
-
-        let color1 = getCookie('color1');
-        let color2 = getCookie('color2');
-
-        if (color1 != "")
-        {
-          document.documentElement.style.setProperty('--color-primary-1', color1);
-          document.documentElement.style.setProperty('--color-primary-2', color2);
-        }
-
         addProfile();
-      }
+        updateValues();
+      });
 
       function remove() {
         element = document.getElementById("date-card");
@@ -322,34 +356,50 @@
               document.querySelector('.messaging-tab .chat').insertAdjacentHTML("beforeend", 
               `<div class="message">` + r.msgs[i] + `</div>`);
             }
-
-            updateMessages();
           },
           method : 'POST',
         });
       }
 
-      function updateMessages() {
-        if (watchingMessages) {
-          $.ajax({
-            url : '/actions/update-messages',
-            data : {
-              "csrfmiddlewaretoken": csrfToken,
-            },
-            timeout: 60000,
-            success : function (r) {
-              for (var i = 0; i < r.value.length; i++) {
-                document.querySelector('.messaging-tab .chat').insertAdjacentHTML("beforeend", 
-                `<div class="message">` + r.value[i] + `</div>`);
-              }
+      function logout() {
+        $.ajax({
+          url : '/actions/logout',
+          data : {
+            "csrfmiddlewaretoken": csrfToken,
+          },
+          success : function (r) {
+            window.location.href = "";
+          },
+          error : function () {
+          },
+          method : 'POST',
+        });
+      }
 
-              updateMessages()
-            },
-            error : function () {
-              updateMessages()
-            },
-            method : 'POST',
-          });
+      function updateValues() {
+        if (watchingMessages) {
+          setTimeout(function () {
+            $.ajax({
+              url : '/actions/update-values',
+              data : {
+                "csrfmiddlewaretoken": csrfToken,
+              },
+              success : function (r) {
+                if (r.success) {
+                  for (var i = 0; i < r.value.length; i++) {
+                    document.querySelector('.messaging-tab .chat').insertAdjacentHTML("beforeend", 
+                    `<div class="message">` + r.value[i] + `</div>`);
+                  }
+                }
+  
+                updateValues()
+              },
+              error : function () {
+                updateValues()
+              },
+              method : 'POST',
+            });
+          }, (20 * 1000));
         }
       }
 
@@ -373,7 +423,7 @@
         if (profileCount < profiles.length)
         {
           content.insertAdjacentHTML("afterbegin",
-          `<div id="date-card"><div class="top-card">
+          `<div id="date-card" class="animate fadeIn"><div class="top-card">
           <img src="` + profiles[profileCount].profilePic + `" class="top-img">
           <div style="line-height: 1.1;">
             <h3>` + profiles[profileCount].name + `</h3>
@@ -381,8 +431,6 @@
             <p class="text-muted">` + profiles[profileCount].favGameOne + `<br>` + profiles[profileCount].favGameTwo + `<br>` + profiles[profileCount].favGameThree + `</p>
             <p><b>Age:</b> ` + profiles[profileCount].age + `</p>
             <p><b>Label:</b> Heterosexual</p>
-            <p><b>Status: </b> Online</p>
-            <p><b>Country: </b> United Kingdom</p>
           </div>
         </div>
         <div class="bottom-card">
@@ -394,13 +442,10 @@
         else
         {
         content.insertAdjacentHTML("afterbegin",
-        `<div style="margin: auto; text-align: center;" class="date-card">
+        `<div style="margin: auto; text-align: center;" class="date-card date-card-end">
         <h2>*Cricket Noises*</h2>
-        <p>Looks like you reached the limit, come back later in [amount] hours later</p>
-        <h4 style="margin-top: 2rem;">Why man? '-'</h4>
-        <p>You might think we do it to make you buy our subscription (which you would be right) 
-          but we also do it to encourage a more authentic experience rather than just constant swiping
-        </p>
+        <p>Looks like your out of luck, we ran out of people who meet your standards. Come back later when we have a
+          fresh batch for you</p>
       </div>`);
         }
       }
@@ -417,7 +462,7 @@
             }
           }
 
-          if (tabs[i] == "messaging") { watchingMessages = true; }
+          if (e.target.id == "messaging") { watchingMessages = true; }
           else { watchingMessages = false; }
         }
       }
@@ -471,24 +516,31 @@
           document.cookie = "color2=" + color2;
         })
       })
+
+      // Color Palette Changing
       
-      // Cookie Finding
+      bgColor.forEach(color => {
+        let colorWhite;
+        let colorLight;
+        let colorDark;
+        let colorBlack;
       
-      function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-        return "";
-      }
+        color.addEventListener('click', () => {
+          if (color.classList.contains('bg-1')) { colorWhite = '#FFF'; colorLight = '#F0EEF6'; colorDark = '#241E38'; colorBlack = '#000'; }
+          if (color.classList.contains('bg-2')) { colorWhite = '#1e2124'; colorLight = '#282b30'; colorDark = '#F0EEF6'; colorBlack = '#FFF'; }
+          if (color.classList.contains('bg-3')) { colorWhite = '#000'; colorLight = '#1B262C'; colorDark = '#F0EEF6'; colorBlack = '#FFF'; }
+      
+          document.documentElement.style.setProperty('--color-white', colorWhite);
+          document.documentElement.style.setProperty('--color-light', colorLight);
+          document.documentElement.style.setProperty('--color-dark', colorDark);
+          document.documentElement.style.setProperty('--color-black', colorBlack);
+      
+          document.cookie = "colorWhite=" + colorWhite;
+          document.cookie = "colorLight=" + colorLight;
+          document.cookie = "colorDark=" + colorDark;
+          document.cookie = "colorBlack=" + colorBlack;
+        })
+      })
     </script>
   </body>
 </html>

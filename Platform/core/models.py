@@ -9,14 +9,6 @@ User = get_user_model()
 
 # Create your models here.
 class Profile(models.Model):
-    games = (('mc', 'Minecraft'),('fortnite', 'Fortnite'),('valorant', 'Valorant'),('lol', 'League of Legends'),
-    ('cod', 'Call of Duty'),('gta', 'Grand Theft Auto'),('apex', 'Apex Legends'),('csgo', 'Counter Strike: Global Offensive'),
-    ('dbd', 'Dead by Daylight'),('wow', 'World of Warcraft'),('eft', 'Escape from Tarkov'),('genshin', 'Genshin Impact'),
-    ('rss', 'Rainbow Six Seige'),('overwatch', 'Overwatch'),('pubg', 'PUBG'),('dota', 'Dota'),('amogus', 'Among Us'),
-    ('phasma', 'Phasmophobia'),('fifa', 'Fifa'),('destiny', 'Destiny'),('eldenring', 'Elden Ring'),('roblox', 'Roblox'),
-    ('candycrush', 'Candy Crush'),('rust', 'rust'),('wot', 'World of Tanks'),('vrchat', 'VR Chat'),('halo', 'Halo'),
-    ('rdr', 'Red Dead Redemption'),('sot', 'Sea Of Thieves'),('nba', 'NBA'),)
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     id_user = models.IntegerField()
 
@@ -32,13 +24,15 @@ class Profile(models.Model):
     birth_date = models.DateTimeField(default=datetime.now)
     country = CountryField(default='US')
 
-    fav_game = models.CharField(max_length=10, choices=games, default=1)
-    sec_fav_game = models.CharField(max_length=10, choices=games, default=1)
-    third_fav_game = models.CharField(max_length=10, choices=games, default=1)
+    fav_game = models.TextField(default='Minecraft')
+    sec_fav_game = models.TextField(default='Fortnite')
+    third_fav_game = models.TextField(default='Call of Duty')
 
     date_requests = models.TextField(default='[]')
-    accepting_messages = models.CharField(default='', max_length=36)
+    accepting_messages = models.TextField(default='')
     messages = models.TextField(default='[]')
+    dates_updated = models.DateTimeField(default=datetime.now)
+    user_setup = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -51,4 +45,4 @@ class Chat(models.Model):
     messages = models.TextField(blank=True)
 
     def __str__(self):
-        return "Message group created by User #" + str(self.admin)
+        return self.id

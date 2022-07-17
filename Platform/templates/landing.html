@@ -9,25 +9,54 @@
     <title>GamerDatez</title>
     <link rel="stylesheet" href="{% static 'styling/global.css' %}"/>
     <link rel="stylesheet" href="{% static 'styling/landing.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styling/compatibility/landing.css' %}"/>
   </head>
   <body>
     <main>
       <div class="info">
-        <h1 id="title" class="animate fadeInLeft" style="font-weight: bold;"></h1>
-        <p class="animate fadeInLeft one">A safe place conecting you to your future soulmate with <b>video games</b>
-          , what? Are you waiting for me to woo you with an essay you will never read? <a href="/info">If so, here it is</a>
-          <br><br>Dark mode only accessible if you create an account >:)</p>
-
-        <p class="text" style="color: var(--color-danger); margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1rem;">
-          {%for message in messages %}
-          {{message}}
-          {% endfor %}
-        </p>
+        <h1 class="animate fadeIn" style="font-weight: strong;">A place to meet like minded ppl</h1>
+        <p class="desc animate fadeIn one">
+        A safe place conecting you to people with <b>video games</b>, what? 
+        Are you waiting for me to woo you with an essay you will never read?</p>
+        <br>
+        <a href="/info" class="btn btn-primary fadeIn animate one"
+        style="text-decoration: none;">Well your in luck</a>
       </div>
       <div class="box animate fadeIn two">
         <div class="inner-box">
           <div class="forms-wrap">
-            <form action="" autocomplete="off" class="sign-in-form" method="POST">
+            <form onsubmit="signup(); return false;" autocomplete="off" class="sign-in-form" method="POST">
+              {% csrf_token %}
+              <div class="heading">
+                <h2>Ready to try?</h2>
+                <h6>Already done this before?</h6>
+                <a href="#" class="toggle">Sign in then!</a>
+              </div>
+
+              <div class="actual-form">
+                <div class="input-wrap" id="sign-input-wrap">
+                  <input
+                    type="text"
+                    name="username"
+                    minlength="4"
+                    class="input-field"
+                    autocomplete="off"
+                    method="POST"
+                    placeholder="Username"
+                    id="signupUsername"
+                    required
+                  />
+                </div>
+
+                <input type="submit" value="Try it now" class="btn sign-btn" method="POST" />
+
+                <p class="text">
+                  
+                </p>
+              </div>
+            </form>
+
+            <form onsubmit="login(); return false;" autocomplete="off" class="sign-up-form" method="POST">
               {% csrf_token %}
               <div class="heading">
                 <h2>Hello there!</h2>
@@ -36,7 +65,7 @@
               </div>
 
               <div class="actual-form">
-                <div class="input-wrap">
+                <div class="input-wrap" id="login-input-wrap">
                   <input
                     type="text"
                     minlength="4"
@@ -44,11 +73,12 @@
                     autocomplete="off"
                     method="POST"
                     name="lusername"
+                    placeholder="Username"
                     required
                   />
                 </div>
 
-                <div class="input-wrap">
+                <div class="input-wrap" id="login-input-wrap">
                   <input
                     type="password"
                     minlength="4"
@@ -56,83 +86,24 @@
                     autocomplete="off"
                     method="POST"
                     name="lpassword"
+                    placeholder="Password"
                     required
                   />
                 </div>
 
-                <input type="submit" value="Sign In" class="sign-btn" method="POST" />
-
-                <p class="text">
-                  Forgotten your password or your login details?<br>
-                  Well suck it, that isn't my problem.
-                </p>
-              </div>
-            </form>
-
-            <form action="" autocomplete="off" class="sign-up-form" method="POST">
-              {% csrf_token %}
-              <div class="heading">
-                <h2>General Kenobi!</h2>
-                <h6>Already done this before?</h6>
-                <a href="#" class="toggle">Sign in then!</a>
-              </div>
-
-              <div class="actual-form">
-                <div class="input-wrap">
-                  <input
-                    type="text"
-                    name="username"
-                    minlength="4"
-                    class="input-field"
-                    autocomplete="off"
-                    method="POST"
-                    required
-                  />
-                  <label>Username</label>
-                </div>
-
-                <div class="input-wrap">
-                  <input
-                    type="email"
-                    class="input-field"
-                    autocomplete="off"
-                    method="POST"
-                    name="email"
-                    required
-                  />
-                  <label>Email</label>
-                </div>
-
-                <div class="input-wrap">
-                  <input
-                    type="password"
-                    minlength="4"
-                    class="input-field"
-                    autocomplete="off"
-                    method="POST"
-                    name="password"
-                    required
-                  />
-                  <label>Password</label>
-                </div>
-
-                <input type="submit"
-                onclick='document.cookie = "tab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";' value="Sign Up" class="sign-btn" method="POST" />
-
-                <p class="text">
-                  By signing up, I agree to have my data stolen and to the
-                  <a href="/terms">Terms of Service</a>
-                </p>
+                <input type="submit" value="Sign In" class="btn sign-btn" />
               </div>
             </form>
           </div>
         </div>
       </div>
-      <p class="animate fadeInUp three" style="color: var(--color-gray); position: absolute; bottom: 0%; font-size: 0.75rem;">
-        I'm new and still in development, so I haven't been idiotproofed yet, also cookies n all that stuff idk</p>
     </main>
 
-    <!-- Javascript file -->
-    <script src="{% static 'javascript/landing.js' %}"></script>
+    <p class="terms animate fadeInUp three" style="width: 100%; text-align: center; color: var(--color-gray); position: absolute; bottom: 0%; font-size: 0.75rem;">
+      By using the platform, I agree to have my data stolen and to the <a href="/terms" style="text-align: center; color: var(--color-gray);">Terms of Service</a>, also cookies n all that stuff idk</p>
+
+    <script type="text/javascript" src="{% static 'javascript/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/global.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/landing.js' %}"></script>
   </body>
 </html>

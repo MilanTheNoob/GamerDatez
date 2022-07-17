@@ -1,0 +1,67 @@
+@media screen and (max-width: 992px) {
+    body::-webkit-scrollbar { display: none; }
+    body { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .middle .card::-webkit-scrollbar { display: none; }
+    .middle .card { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .container {
+        grid-template-columns: 100%;
+        grid-template-rows: min-content auto min-content;
+        padding: 1rem;
+        padding-top: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        /* height: 500px; */
+    }
+
+    .container .left { grid-row: 3 / 4; width: 100%; position: static;}
+    .container .middle {width: 100%;grid-row: 2 / 3;}
+    .container .right { grid-row: 1 / 2; }
+
+    .middle .card {height: 100%;/* overflow-y: hidden; */width: 100%;}
+  
+    .container .left .sidebar > div h3 { display: none; }
+    .left .sidebar {
+        display: grid; 
+        grid-template-columns: auto auto auto auto; 
+    }
+
+    .container .left .profile { display: none; }
+    .sidebar h3 { display: none; }
+    .left .btn { display: none; }
+    .requests h4 { display: none; }
+
+    .date-actions { width: 100%; }
+    .dating-cards { width: 100%; height: unset; margin: 1rem auto; }
+    .dating-card { padding: 1rem; height: min-content; }
+    .dating-card img { height: auto; }
+    .top-card div { font-size: 0.8rem; }
+
+    .actionMobile {display: grid;grid-template-rows: auto auto;grid-row-gap: 0.1rem;}
+    .actionPC { display: none; }
+
+    .request .info {
+        display: grid;
+        grid-template-columns: auto min-content;
+    }
+
+    .messages-tab .message { background: var(--color-light); }
+
+    .date-card-end { font-size: 0.8rem; }
+
+    .choose-bg { 
+        display: grid !important; 
+        grid-template-rows: auto auto auto !important; 
+        width: 100%; 
+        gap: 0.5rem !important;
+    }
+
+    .choose-bg div {
+        width: 100%;
+    }
+
+    
+}
